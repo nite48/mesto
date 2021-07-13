@@ -1,0 +1,11 @@
+.elements{
+  width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns:repeat(3, 1fr);
+  grid-template-rows:repeat(2, 1fr);
+  grid-row-gap: 20px;
+  grid-column-gap: 17px;
+}

@@ -1,0 +1,10 @@
+.element__container{
+  width: 246px;
+  display: flex;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+  margin-bottom: 31px;
+
+}
