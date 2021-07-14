@@ -1,9 +1,7 @@
 .element__container{
-  width: 246px;
+  width: 282px;
   display: flex;
-  justify-content: space-between;
-  margin-left: auto;
-  margin-right: auto;
+  flex-direction: row;
   margin-top: 25px;
   margin-bottom: 31px;
 
