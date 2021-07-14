@@ -1,6 +1,5 @@
 .popup{
-  /*display: none;*/
-  display: grid;
+  display: none;
   grid-template-columns: 1fr max-content 1fr;
   grid-template-rows: 1fr max-content 1fr;
   grid-gap: 8px;
