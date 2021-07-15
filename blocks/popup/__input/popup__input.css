@@ -1,4 +1,4 @@
-.popup__edit{
+.popup__input{
   border: 0;
   border-bottom:1px solid rgba(0, 0, 0, .2);
   margin-right: auto;
@@ -19,20 +19,20 @@
 
 
 @media screen and (min-width: 320px) {
-  .popup__edit{
+  .popup__input{
     width: 238px;
   }
-  .popup__edit:first-of-type {
+  .popup__input:first-of-type {
     margin-top: 75px;
   }
 }
 
 
 @media screen and (min-width: 768px) {
-  .popup__edit{
+  .popup__input{
     width: 358px;
   }
-  .popup__edit:first-of-type {
+  .popup__input:first-of-type {
     margin-top: 49px;
   }
 }
