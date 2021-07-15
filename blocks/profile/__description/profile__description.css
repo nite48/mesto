@@ -1,7 +1,8 @@
 .profile__description{
   font-weight: normal;
+  max-width: 294px;
   color: #FFFFFF;
-  text-align: start;
+  
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -13,6 +14,8 @@
   .profile__description{
     font-size: 14px;
     line-height: 17px;
+    text-align: center;
+
 
     
   }
@@ -22,6 +25,7 @@
   .profile__description{
     font-size: 18px;
     line-height: 22px;
+    text-align: start;
 
     
   }
