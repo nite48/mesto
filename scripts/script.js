@@ -1,35 +1,33 @@
-addEventList();
+document.querySelector('.popup__form').addEventListener('submit', savePopup);
+document.querySelector('.popup__close-button').addEventListener('click', closePopup);
+document.querySelector('.profile__edit-button').addEventListener('click', editProfile);
 
-function addEventList(){
-  document.querySelector('.popup__submit-button').addEventListener('submit', savePopup);
-  document.querySelector('.popup__close-button').addEventListener('click', closePopup);
-  document.querySelector('.profile__edit-button').addEventListener('click', editProfile);
-}
+
+const formName = document.querySelector('#name');
+const formTitle = document.querySelector('#title');
+const formEdit = document.querySelector('.popup');
+const formNameForm = document.querySelector('.profile__title');
+const formDescriptionForm = document.querySelector('.profile__description');
+
 
 function editProfile(event){
   event.preventDefault();
-  document.querySelector('#name').value = document.querySelector('.profile__title').innerText;
-  document.querySelector('#title').value = document.querySelector('.profile__description').innerText;
-  document.querySelector('.popup').classList.add('popup_activated');
+  formName.value = formNameForm.textContent;
+  formTitle.value = formDescriptionForm.textContent;
+  formEdit.classList.add('popup_activated');
 }
+
 
 function savePopup(event){
   event.preventDefault();
-  let name = document.getElementById('name').value;
-  let title = document.getElementById('title').value;
-  setProfile(name, title);
+  formNameForm.textContent = formName.value.trim();
+  formDescriptionForm.textContent = formTitle.value.trim();
+  formEdit.classList.remove('popup_activated');
   
 }
 
 function closePopup(event) {
   event.preventDefault();
-  document.querySelector('.popup').classList.remove('popup_activated');
+  formEdit.classList.remove('popup_activated');
 }
 
-function setProfile(name, title) {
-  document.querySelector('.profile__title').innerHTML = name.trim();
-  document.querySelector('.profile__description').innerHTML = title.trim();
-}
-// function like_button(argument) {
-//   // body...
-// }
