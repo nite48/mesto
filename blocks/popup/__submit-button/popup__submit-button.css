@@ -5,6 +5,7 @@
   margin-left: auto;
   cursor: pointer;
   font-family: Inter, sans-serif;
+  border:0;
 }
 
 
@@ -28,7 +29,9 @@
   .popup__submit-button{
     width: 358px;
     height: 50px;
+    font-size: 18px;
+    line-height: 22px;
     margin-top: 34px;
     margin-bottom: 0;
-  }   
+  }
 }
