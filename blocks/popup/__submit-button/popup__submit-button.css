@@ -6,6 +6,7 @@
   cursor: pointer;
   font-family: Inter, sans-serif;
   border:0;
+  border-radius: 2px;
 }
 
 
@@ -31,7 +32,7 @@
     height: 50px;
     font-size: 18px;
     line-height: 22px;
-    margin-top: 34px;
-    margin-bottom: 0;
+    margin-top: 48px;
+    margin-bottom: 37px;
   }
 }

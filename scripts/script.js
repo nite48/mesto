@@ -1,8 +1,8 @@
-const submitButton = document.querySelector('.popup__form');
+const submitForm = document.querySelector('.popup__form');
 const clickButtonClose = document.querySelector('.popup__close-button');
 const clickButtonEdit = document.querySelector('.profile__edit-button');
 
-submitButton.addEventListener('submit', savePopup);
+submitForm.addEventListener('submit', savePopup);
 clickButtonClose.addEventListener('click', closePopup);
 clickButtonEdit.addEventListener('click', editProfile);
 
