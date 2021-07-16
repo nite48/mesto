@@ -1,11 +1,11 @@
 .profile__description{
   font-weight: normal;
   color: #FFFFFF;
-  
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   margin: 0;
+  text-align: start;
 }
 
 
@@ -14,7 +14,10 @@
     max-width: 189px;
     font-size: 14px;
     line-height: 17px;
-    text-align: center;
+    grid-column: 2;
+    margin-left: auto;
+    margin-right: auto;
+    
 
 
     
@@ -26,7 +29,9 @@
     max-width: 294px;
     font-size: 18px;
     line-height: 22px;
-    text-align: start;
+    margin-left: 0;
+    margin-right: 0;
+    grid-column: 1;
 
     
   }
