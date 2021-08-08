@@ -22,14 +22,13 @@ const formDescriptionForm = document.querySelector('.profile__description');
 const popupEditEmpty = document.querySelector('.empty');
 const formNameEmpty = document.querySelector('#name_empty');
 const formLinkEmpty = document.querySelector('#link_empty');
+const formClickImage = document.querySelector('#formImage');
+const formImageInsert = formClickImage.querySelector('.form__image');
+const formElementContent = formClickImage.querySelector('.form__subtitle');
+const addClassClickImage = document.querySelector('.form');
+const closeButtonImage = document.querySelector('.form__closing-button');
 
-// const elementTemplate = document.querySelector('#elements').content;
-// const usersOnline = document.querySelector('.element');
-// const elementsElement = elementTemplate.querySelector('.elements').cloneNode(true);
-// elementsElement.querySelector('.element__image').src = 'tinyurl.com/v4pfzwy';
-// elementsElement.querySelector('.profile__description').textContent = 'Дюк Корморант';
-// usersOnline.append(elementsElement); 
-// console.log(elementTemplate);
+
 
 const initialCards = [
   {
@@ -106,7 +105,7 @@ function saveEmpty(event) {
   closeEmpty(event);
   
 }
-createPictures(...initialCards);
+
 
 function createPictures(...args) {
   const images = document.querySelector('.elements');
@@ -128,6 +127,7 @@ function createPictures(...args) {
     images.prepend(pictureElement);
   });
 } 
+createPictures(...initialCards);
 
 function likeIt (event){
   event.preventDefault();
@@ -145,6 +145,20 @@ function removeImage(event){
   event.preventDefault();
   event.target.parentElement.remove();
 }
-function enlargingImage(event){
-  console.log('zql');
+
+function closeImage(event) {
+  event.preventDefault();
+  formClickImage.classList.remove('form_opened');
 }
+function enlargingImage(event){
+  event.preventDefault();
+
+  const title = event.target.parentElement.querySelector('.element__title').textContent;
+  formImageInsert.setAttribute('src', event.target.getAttribute('src'));
+  formImageInsert.setAttribute('alt', title);
+  formElementContent.textContent = title;
+  closeButtonImage.addEventListener('click', closeImage);
+  addClassClickImage.classList.add('form_opened');
+
+}
+
