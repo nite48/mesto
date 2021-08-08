@@ -1,0 +1,17 @@
+.form__subtitle{
+  max-width: 280px;
+  margin-top: 10px;
+  margin-left: 0;
+  margin-bottom: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: Inter, sans-serif;
+  text-align: left;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF;
+  
+}
