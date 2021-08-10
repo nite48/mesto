@@ -30,7 +30,7 @@
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup">
+  <div id="popupProfile" class="popup">
     <button class="popup__close-button" type="button"></button>
     <div class="popup__container">
       <h3 class="popup__title">Редактировать профиль</h3>
@@ -41,23 +41,23 @@
       </form>
     </div>
   </div>
-  <div class="empty" id="addImage">
-    <button class="empty__close-button" type="button"></button>
-    <div class="empty__container">
-      <h3 class="empty__title">Новое место</h3>
-      <form class="empty__form" name="formEditEmpty">
-        <input id="name_empty" type="text" name="Name_new_empty" class="empty__input" placeholder="Название">
-        <input id="link_empty" type="text" name="Title_new_empty" class="empty__input" placeholder="Ссылка на картинку">
-        <button class="empty__submit-button" type="submit">Создать</button> 
+  <div class="popup" id="addImage">
+    <button class="popup__close-button" type="button"></button>
+    <div class="popup__container">
+      <h3 class="popup__title">Новое место</h3>
+      <form class="popup__form" name="formEditEmpty" id="popupSubmitForm">
+        <input id="name_empty" type="text" name="Name_new_empty" class="popup__input" placeholder="Название">
+        <input id="link_empty" type="text" name="Title_new_empty" class="popup__input" placeholder="Ссылка на картинку">
+        <button class="popup__submit-button" type="submit">Создать</button> 
       </form>
     </div>
     
   </div>
   <template id="elementsTemplate">
-    <div class="element">
+    <div class="element"  id="elementId">
       <img class="element__image" alt="">
       <div class="element__container">
-        <h2 class="element__title"></h2>
+        <h2 class="element__title" id="titleElement"></h2>
         <button class="element__heart" type="button"></button>
       </div>
       <button class="element__remove-button" type="button"></button>
