@@ -10,6 +10,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   grid-column-gap: 8px;
   grid-row-gap: 8px;
+  z-index: 2;
   
 }
 
@@ -19,10 +20,3 @@
   }
 }
 
-/*@media screen and (min-width: 768px) {
-  .popup{
-    
-    
-    
-  }
-}*/
