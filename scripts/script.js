@@ -12,7 +12,7 @@ const formImageInsert = formClickImage.querySelector('.popup__image');
 const formElementContent = formClickImage.querySelector('.popup__subtitle');
 const addClassClickImage = document.querySelector('.popup');
 const popupProfileEdit = document.querySelector('#popupProfile');
-const formSubmit = emptyAddImage.querySelector('.popup__form');
+const newCardForn = emptyAddImage.querySelector('.popup__form');
 const elementTitle = document.querySelector('.element__title');
 
 
@@ -21,7 +21,7 @@ const elementTitle = document.querySelector('.element__title');
 popupProfileEdit.addEventListener('submit', savePopup);
 profileButtonEdit.addEventListener('click', editProfile);
 editButtonEditEmpty.addEventListener('click', onAddImage);
-formSubmit.addEventListener('submit', savePopupAdd);
+newCardForn.addEventListener('submit', savePopupAdd);
 
 
 document.querySelectorAll('.popup__close-button').forEach(close =>{
@@ -101,6 +101,9 @@ function closePopup(popup) {
 function onAddImage(event) {
   openPopup(emptyAddImage);
 }
+function onOpenImage(event) {
+  openPopup(formClickImage);
+}
 
 function removeImage(event){
   event.target.closest('#elementId').remove();
@@ -111,15 +114,7 @@ function closeOnPopup(event){
   closePopup(event.target.closest('.popup'));
 }
 
-function closeImage(event) {
-  event.preventDefault();
-  formClickImage.classList.remove('popup_activated');
-}
 
-
-function imagePrepend(pictureElement, images){
-  images.prepend(pictureElement);
-}
 function createElement(images, imageTemplate, templ) {
   const pictureElement = imageTemplate.querySelector('.element').cloneNode(true);
   const image = pictureElement.querySelector('.element__image');
@@ -133,7 +128,8 @@ function createElement(images, imageTemplate, templ) {
   pictureElement.querySelector('.element__heart').addEventListener('click', likeIt);
   pictureElement.querySelector('.element__remove-button').addEventListener('click', removeImage);
   image.addEventListener('click', enlargingImage);
-  imagePrepend(pictureElement, images);
+  return pictureElement
+  
 }
 
 function createPictures(...args) {
@@ -141,7 +137,7 @@ function createPictures(...args) {
   const imageTemplate = document.querySelector('#elementsTemplate').content;
 
   args.forEach(templ => {
-    createElement(images, imageTemplate, templ) 
+    images.prepend(createElement(images, imageTemplate, templ));
   });
 } 
 createPictures(...initialCards);
@@ -163,7 +159,7 @@ function enlargingImage(event){
   const title = event.target.getAttribute('alt');
   formImageInsert.setAttribute('src', event.target.getAttribute('src'));
   formElementContent.textContent = title;
-  formClickImage.classList.add('popup_activated');
+  onOpenImage(formClickImage);
 
 }
 
