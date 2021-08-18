@@ -17,11 +17,16 @@ const elementTitle = document.querySelector('.element__title');
 const closePopupPage = document.querySelector('body');
 
 
+
 popupProfileEdit.addEventListener('submit', savePopup);
 profileButtonEdit.addEventListener('click', editProfile);
 editButtonEditEmpty.addEventListener('click', onAddImage);
 newCardForn.addEventListener('submit', savePopupAdd);
 closePopupPage.addEventListener('keyup', closePopupOutside);
+
+popupProfileEdit.addEventListener('click', closeOnPopup);
+emptyAddImage.addEventListener('click', closeOnPopup);
+formClickImage.addEventListener('click', closeOnPopup);
 
 
 
@@ -34,9 +39,7 @@ document.querySelectorAll('.popup__container').forEach(temp => {
   temp.addEventListener('click', closePopupOutsideClick);
 });
 
-document.querySelectorAll('.popup').forEach(temp => {
-  temp.addEventListener('click', closePopupOutsideClickOn);
-});
+
 
 
 
@@ -185,12 +188,11 @@ function closePopupOutside(event){
 };
 
 function closePopupOutsideClick(event){
-  event.stopPropagation();
-  
-  
-  
+  event.stopPropagation();  
 }
-function closePopupOutsideClickOn(event){
-  console.log(document.querySelector('.popup_activated'))
-  closePopup(document.querySelector('.popup_activated'));
-}
+// function closePopupOutsideClickOn(event){
+//   console.log(document.querySelector('.popup_activated'))
+//   closePopup(document.querySelector('.popup_activated'));
+// }
+
+
