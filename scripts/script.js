@@ -14,20 +14,29 @@ const addClassClickImage = document.querySelector('.popup');
 const popupProfileEdit = document.querySelector('#popupProfile');
 const newCardForn = emptyAddImage.querySelector('.popup__form');
 const elementTitle = document.querySelector('.element__title');
-
-
+const closePopupPage = document.querySelector('body');
 
 
 popupProfileEdit.addEventListener('submit', savePopup);
 profileButtonEdit.addEventListener('click', editProfile);
 editButtonEditEmpty.addEventListener('click', onAddImage);
 newCardForn.addEventListener('submit', savePopupAdd);
+closePopupPage.addEventListener('keyup', closePopupOutside);
+
+
 
 
 document.querySelectorAll('.popup__close-button').forEach(close =>{
   close.addEventListener('click', closeOnPopup);
 })
 
+document.querySelectorAll('.popup__container').forEach(temp => {
+  temp.addEventListener('click', closePopupOutsideClick);
+});
+
+document.querySelectorAll('.popup').forEach(temp => {
+  temp.addEventListener('click', closePopupOutsideClickOn);
+});
 
 
 
@@ -84,6 +93,8 @@ function editProfile(event){
   event.preventDefault();
   profileName.value = formNameForm.textContent;
   formTitle.value = formDescriptionForm.textContent;
+  profileName.dispatchEvent(new Event('input'));
+  formTitle.dispatchEvent(new Event('input'));
   openPopup(popupProfileEdit);
 }
 
@@ -160,6 +171,26 @@ function enlargingImage(event){
   formImageInsert.setAttribute('src', event.target.getAttribute('src'));
   formElementContent.textContent = title;
   onOpenImage(formClickImage);
+  
 
 }
 
+function closePopupOutside(event){
+  let key = event.keyCode;
+
+  if (key == 27) {
+    
+    closePopup(document.querySelector('.popup_activated'))
+  };
+};
+
+function closePopupOutsideClick(event){
+  event.stopPropagation();
+  
+  
+  
+}
+function closePopupOutsideClickOn(event){
+  console.log(document.querySelector('.popup_activated'))
+  closePopup(document.querySelector('.popup_activated'));
+}
