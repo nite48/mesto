@@ -15,6 +15,10 @@ const popupProfileEdit = document.querySelector('#popupProfile');
 const newCardForn = emptyAddImage.querySelector('.popup__form');
 const elementTitle = document.querySelector('.element__title');
 const closePopupPage = document.querySelector('body');
+const numberKeyboards = 27;
+const nameEmpty= emptyAddImage.querySelector('#name_empty');
+const linkEmpty= emptyAddImage.querySelector('#link_empty');
+const buttonElement = document.querySelector('#buttonAddImage');
 
 
 
@@ -22,8 +26,6 @@ popupProfileEdit.addEventListener('submit', savePopup);
 profileButtonEdit.addEventListener('click', editProfile);
 editButtonEditEmpty.addEventListener('click', onAddImage);
 newCardForn.addEventListener('submit', savePopupAdd);
-closePopupPage.addEventListener('keyup', closePopupOutside);
-
 popupProfileEdit.addEventListener('click', closeOnPopup);
 emptyAddImage.addEventListener('click', closeOnPopup);
 formClickImage.addEventListener('click', closeOnPopup);
@@ -76,12 +78,11 @@ function savePopup(event){
   formNameForm.textContent = profileName.value.trim();
   formDescriptionForm.textContent = formTitle.value.trim();
   closePopup(popupProfileEdit);
+
   
 }
 function savePopupAdd(event) {
   event.preventDefault();
-  const nameEmpty= emptyAddImage.querySelector('#name_empty');
-  const linkEmpty= emptyAddImage.querySelector('#link_empty');
   createPictures({
     name: formNameEmpty.value.trim(),
     link: formLinkEmpty.value.trim()
@@ -101,18 +102,14 @@ function editProfile(event){
   openPopup(popupProfileEdit);
 }
 
-function openPopup(popup) {
-  popup.classList.add('popup_activated');
 
-}
-
-function closePopup(popup) {
-  popup.classList.remove('popup_activated');
-}
 
 
 
 function onAddImage(event) {
+  buttonElement.setAttribute('disabled', true);
+  buttonElement.classList.add('popup__submit-button_disabled');
+  
   openPopup(emptyAddImage);
 }
 function onOpenImage(event) {
@@ -129,7 +126,7 @@ function closeOnPopup(event){
 }
 
 
-function createElement(images, imageTemplate, templ) {
+function createElement(imageTemplate, templ) {
   const pictureElement = imageTemplate.querySelector('.element').cloneNode(true);
   const image = pictureElement.querySelector('.element__image');
 
@@ -151,7 +148,7 @@ function createPictures(...args) {
   const imageTemplate = document.querySelector('#elementsTemplate').content;
 
   args.forEach(templ => {
-    images.prepend(createElement(images, imageTemplate, templ));
+    images.prepend(createElement(imageTemplate, templ));
   });
 } 
 createPictures(...initialCards);
@@ -178,21 +175,35 @@ function enlargingImage(event){
 
 }
 
-function closePopupOutside(event){
-  let key = event.keyCode;
 
-  if (key == 27) {
+function closePopupOutside(event){
+  const key = event.keyCode;
+
+  if (key === numberKeyboards) {
     
-    closePopup(document.querySelector('.popup_activated'))
+    closePopup(document.querySelector(".popup_activated"));
   };
 };
+
+function openPopup(popup) {
+  popup.classList.add('popup_activated');
+  document.addEventListener("keydown", closePopupOutside);
+
+
+
+
+
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_activated');
+  document.removeEventListener("keydown", closePopupOutside);
+
+}
 
 function closePopupOutsideClick(event){
   event.stopPropagation();  
 }
-// function closePopupOutsideClickOn(event){
-//   console.log(document.querySelector('.popup_activated'))
-//   closePopup(document.querySelector('.popup_activated'));
-// }
+
 
 
