@@ -22,7 +22,6 @@ export class FormValidator{
     inputElement.classList.remove(this._parametersValidation.inputErrorClass);
   }
   _resolveButton(inputList, buttonElement){
-    const array = inputList[0].value;
     if (inputList.every((temp) => temp.validity.valid)) {
       buttonElement.classList.remove(this._parametersValidation.inactiveButtonClass);
       buttonElement.removeAttribute('disabled');
@@ -49,7 +48,7 @@ export class FormValidator{
     });
 
     this._formElement.addEventListener('reset', () => {
-      this._resolveButton(inputFields, submitButton);
+      buttonElement.setAttribute('disabled', true);
     });
     }
 }

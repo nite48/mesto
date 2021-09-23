@@ -6,30 +6,28 @@
   <link rel="stylesheet" type="text/css" href="pages/index.css">
   <title>Mesto</title>
 </head>
-<body id='body'>
-  <div class="page">
-    <header class="header">
-      <img src="images/logo.svg" class="header__logo" alt="Лого">
-    </header>
-    <main>
-      <section class="profile">
+<body class="page" id='body'>
+  <header class="header">
+    <img src="images/logo.svg" class="header__logo" alt="Лого">
+  </header>
+  <main>
+    <section class="profile">
 
-        <img src="images/kusto.jpg" class="profile__avatar" alt="Кюсто">
-        <div class="profile__info">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button" type="button"></button>
-          <p class="profile__description">Исследователь океана</p>
-        </div>
-        <button class="profile__add-button" type="button"></button>
-      </section>
-      
-      <section class="elements"></section>
-      
-    </main>
-    <footer class="footer">
-      <p class="footer__copyright">© 2020 Mesto Russia</p>
-    </footer>
-  </div>
+      <img src="images/kusto.jpg" class="profile__avatar" alt="Кюсто">
+      <div class="profile__info">
+        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <button class="profile__edit-button" type="button"></button>
+        <p class="profile__description">Исследователь океана</p>
+      </div>
+      <button class="profile__add-button" type="button"></button>
+    </section>
+    
+    <section class="elements"></section>
+    
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">© 2020 Mesto Russia</p>
+  </footer>
   <div id="popupProfile" class="popup">
     <button class="popup__close-button" type="button"></button>
     <div class="popup__container">

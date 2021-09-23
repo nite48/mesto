@@ -6,7 +6,7 @@ export class Card{
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
-    console.log(this._cardSelector)
+    
 
   }
 
@@ -50,7 +50,6 @@ export class Card{
 
 
   _enlargingImage(){
-    const title = event.target.getAttribute('alt');
     formImageInsert.src = this._link;
     formImageInsert.alt = this._name;
     formElementContent.textContent = this._name;
@@ -65,7 +64,7 @@ export class Card{
       this._enlargingImage();
     });
     this._element.querySelector('.element__remove-button').addEventListener('click', () =>{
-      this._removeImage(event);
+      this._removeImage();
     });
   }
 }

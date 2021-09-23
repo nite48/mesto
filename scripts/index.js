@@ -20,6 +20,7 @@ const numberKeyboards = 27;
 const nameEmpty= emptyAddImage.querySelector('#name_empty');
 const linkEmpty= emptyAddImage.querySelector('#link_empty');
 const buttonElement = document.querySelector('#buttonAddImage');
+const elementTemplate = document.querySelector('.elements');
 
 
 const data = {
@@ -87,11 +88,15 @@ function enableFormValidation(){
 }
 enableFormValidation();
 
+function createCard(element){
+  const card = new Card(element, '#elementsTemplate');
+  const cardTemplate = card.generateCard(); 
+  return cardTemplate
+}
 
 function addCard(element){
-  const card = new Card(element, '#elementsTemplate');
-  const cardElement = card.generateCard();
-  document.querySelector('.elements').prepend(cardElement);
+  const cardElement = createCard(element);
+  elementTemplate.prepend(cardElement);
 }
 
 
@@ -148,7 +153,6 @@ function editProfile(event){
 
 
 function onAddImage(event) {
-  buttonElement.setAttribute('disabled', true);
   buttonElement.classList.add('popup__submit-button_disabled');
   openPopup(emptyAddImage);
 }
