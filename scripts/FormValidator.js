@@ -48,7 +48,8 @@ export class FormValidator{
     });
 
     this._formElement.addEventListener('reset', () => {
-      buttonElement.setAttribute('disabled', true);
+      submitButton.setAttribute('disabled', true);
+      submitButton.classList.add(this._parametersValidation.inactiveButtonClass);
     });
     }
 }
