@@ -153,7 +153,7 @@ function editProfile(event){
 
 
 function onAddImage(event) {
-  buttonElement.classList.add('popup__submit-button_disabled');
+  newCardForn.reset();
   openPopup(emptyAddImage);
 }
 
