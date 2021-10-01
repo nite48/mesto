@@ -1,12 +1,12 @@
-import {openPopup, formImageInsert, formElementContent, formClickImage} from './index.js';
 
 
-export class Card{
-  constructor(data, cardSelector) {
+
+export default class Card{
+  constructor({data, handleCardClick}, cardSelector) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
-    
+    this._handleCardClick = handleCardClick;
 
   }
 
@@ -39,10 +39,6 @@ export class Card{
   }
  
 
-  _onOpenImage(){
-    openPopup(formClickImage)
-  }
-
 
   _removeImage(event){
     this._element.remove();
@@ -50,10 +46,7 @@ export class Card{
 
 
   _enlargingImage(){
-    formImageInsert.src = this._link;
-    formImageInsert.alt = this._name;
-    formElementContent.textContent = this._name;
-    this._onOpenImage();
+    this._handleCardClick(this._name, this._link)
   }
  
   _setEventListeners(){
