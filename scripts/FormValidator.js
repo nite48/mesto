@@ -1,11 +1,13 @@
-export class FormValidator{
+export default class FormValidator{
   constructor(formElement, parametersValidation){
     this._formElement = formElement;
     this._parametersValidation = parametersValidation;
   }
+  // включение валидации
   enableValidation(){
     this._setEventListeners();
   }
+  // Метод для определения ошибки валидации
   _showInputError(inputElement, errorMessage){
     const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     //console.log(errorMessage)
@@ -13,6 +15,7 @@ export class FormValidator{
     errorElement.classList.add(this._parametersValidation.errorClass);
     inputElement.classList.add(this._parametersValidation.inputErrorClass);
   }
+  //скритие ошибок валидации
   _hideInputError(inputElement){
     const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
   
@@ -21,6 +24,7 @@ export class FormValidator{
 
     inputElement.classList.remove(this._parametersValidation.inputErrorClass);
   }
+  // метод отключения кнопки сабмита
   _resolveButton(inputList, buttonElement){
     if (inputList.every((temp) => temp.validity.valid)) {
       buttonElement.classList.remove(this._parametersValidation.inactiveButtonClass);
@@ -34,7 +38,6 @@ export class FormValidator{
   _validateInputField(inputElement){
     inputElement.validity.valid ? this._hideInputError(inputElement) : this._showInputError(inputElement, inputElement.validationMessage);
   }
-
 
   _setEventListeners(){
     const submitButton = this._formElement.querySelector(this._parametersValidation.submitButtonSelector);
