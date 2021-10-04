@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="pages/index.css">
   <title>Mesto</title>
 </head>
 <body class="page" id='body'>
   <header class="header">
-    <img src="images/logo.svg" class="header__logo" alt="Лого">
+    <img src='<%=require("./images/logo.svg")%>' class="header__logo" alt="Лого">
   </header>
   <main>
     <section class="profile">
 
-      <img src="images/kusto.jpg" class="profile__avatar" alt="Кюсто">
+      <img src='<%=require("./images/kusto.jpg")%>' class="profile__avatar" alt="Кюсто">
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <button class="profile__edit-button" type="button"></button>
@@ -68,11 +67,10 @@
    <div  class="popup" id="formImage">
         <button class="popup__close-button" type="button"></button>
         <div class="popup__container popup__container_big">
-            <img class="popup__image" alt="" src="#">
+            <img class="popup__image" alt="">
             <p class="popup__subtitle"></p>
         </div>
     </div>
   <div class="overlay"></div>
-  <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>
