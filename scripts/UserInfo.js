@@ -4,7 +4,7 @@ export default class UserInfo{
         this._descriptionProfile = userSelector.descriptionProfile;
         this._currentNameProfile = document.querySelector(this._nameProfile);
         this._currentDescriptionProfile = document.querySelector(this._descriptionProfile);
-        // console.log(this._currentDescriptionProfile)
+        
 
     }
     getUserInfo(){

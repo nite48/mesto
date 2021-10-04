@@ -33,9 +33,9 @@
     <div class="popup__container">
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" name="formEdit"> 
-        <input id="name" type="text" name="Name_new" required class="popup__input" minlength="2" maxlength="40">
+        <input id="name" type="text" name="name" required class="popup__input" minlength="2" maxlength="40">
         <span id="name-error" class="popup__error-message"></span>
-        <input id="title" type="text" name="Title_new" required class="popup__input" minlength="2" maxlength="200">
+        <input id="title" type="text" name="description" required class="popup__input" minlength="2" maxlength="200">
         <span id="title-error" class="popup__error-message"></span>
         <button class="popup__submit-button" type="submit">Сохранить</button>       
       </form>
@@ -46,9 +46,9 @@
     <div class="popup__container">
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" name="formEditEmpty" id="popupSubmitForm">
-        <input id="name_empty" type="text" name="Name_new_empty" required class="popup__input" placeholder="Название" maxlength="30" minlength="2">
+        <input id="name_empty" type="text" name="name" required class="popup__input" placeholder="Название" maxlength="30" minlength="2">
         <span id="name_empty-error" class="popup__error-message"></span>
-        <input id="link_empty" type="url" name="Title_new_empty" required class="popup__input" placeholder="Ссылка на картинку">
+        <input id="link_empty" type="url" name="link" required class="popup__input" placeholder="Ссылка на картинку">
         <span id="link_empty-error" class="popup__error-message"></span>
         <button class="popup__submit-button" type="submit" id="buttonAddImage">Создать</button> 
       </form>
