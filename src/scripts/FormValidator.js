@@ -2,6 +2,9 @@ export default class FormValidator{
   constructor(formElement, parametersValidation){
     this._formElement = formElement;
     this._parametersValidation = parametersValidation;
+    this._submitButton = this._formElement.querySelector(this._parametersValidation.submitButtonSelector);
+    this._inputFields = Array.from(this._formElement.querySelectorAll(this._parametersValidation.inputSelector));
+    //console.log(this._inputFields)
   }
   // включение валидации
   enableValidation(){
@@ -10,7 +13,7 @@ export default class FormValidator{
   // Метод для определения ошибки валидации
   _showInputError(inputElement, errorMessage){
     const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
-    //console.log(errorMessage)
+    console.log(inputElement)
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._parametersValidation.errorClass);
     inputElement.classList.add(this._parametersValidation.inputErrorClass);
@@ -18,7 +21,6 @@ export default class FormValidator{
   //скритие ошибок валидации
   _hideInputError(inputElement){
     const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
-  
     errorElement.classList.remove(this._parametersValidation.errorClass);
     errorElement.textContent = '';
 
@@ -26,6 +28,7 @@ export default class FormValidator{
   }
   // метод отключения кнопки сабмита
   _resolveButton(inputList, buttonElement){
+    //console.log(buttonElement)
     if (inputList.every((temp) => temp.validity.valid)) {
       buttonElement.classList.remove(this._parametersValidation.inactiveButtonClass);
       buttonElement.removeAttribute('disabled');
@@ -38,21 +41,29 @@ export default class FormValidator{
   _validateInputField(inputElement){
     inputElement.validity.valid ? this._hideInputError(inputElement) : this._showInputError(inputElement, inputElement.validationMessage);
   }
+  
 
+  popupResetValidation(){
+    //console.log(this._inputList)
+    this._inputFields.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    })
+    this._resolveButton(this._inputFields,this._submitButton);
+  }
   _setEventListeners(){
-    const submitButton = this._formElement.querySelector(this._parametersValidation.submitButtonSelector);
-    const inputFields = Array.from(this._formElement.querySelectorAll(this._parametersValidation.inputSelector));
-    this._resolveButton(inputFields, submitButton);
-    inputFields.forEach(inputElement => {
+    // console.log(this._submitButton)
+    this._resolveButton(this._inputFields, this._submitButton);
+    //console.log(this._inputFields)
+    this._inputFields.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
         this._validateInputField(inputElement);
-        this._resolveButton(inputFields, submitButton);
+        this._resolveButton(this._inputFields, this._submitButton);
       });
     });
 
     this._formElement.addEventListener('reset', () => {
-      submitButton.setAttribute('disabled', true);
-      submitButton.classList.add(this._parametersValidation.inactiveButtonClass);
+      this._submitButton.setAttribute('disabled', true);
+      this._submitButton.classList.add(this._parametersValidation.inactiveButtonClass);
     });
     }
 }

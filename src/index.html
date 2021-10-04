@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="pages/index.css">
   <title>Mesto</title>
 </head>
 <body class="page" id='body'>
   <header class="header">
-    <img src="images/logo.svg" class="header__logo" alt="Лого">
+    <img src='<%=require("./images/logo.svg")%>' class="header__logo" alt="Лого">
   </header>
   <main>
     <section class="profile">
 
-      <img src="images/kusto.jpg" class="profile__avatar" alt="Кюсто">
+      <img src='<%=require("./images/kusto.jpg")%>' class="profile__avatar" alt="Кюсто">
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <button class="profile__edit-button" type="button"></button>
@@ -33,9 +32,9 @@
     <div class="popup__container">
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" name="formEdit"> 
-        <input id="name" type="text" name="Name_new" required class="popup__input" minlength="2" maxlength="40">
+        <input id="name" type="text" name="name" required class="popup__input" minlength="2" maxlength="40">
         <span id="name-error" class="popup__error-message"></span>
-        <input id="title" type="text" name="Title_new" required class="popup__input" minlength="2" maxlength="200">
+        <input id="title" type="text" name="description" required class="popup__input" minlength="2" maxlength="200">
         <span id="title-error" class="popup__error-message"></span>
         <button class="popup__submit-button" type="submit">Сохранить</button>       
       </form>
@@ -46,9 +45,9 @@
     <div class="popup__container">
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" name="formEditEmpty" id="popupSubmitForm">
-        <input id="name_empty" type="text" name="Name_new_empty" required class="popup__input" placeholder="Название" maxlength="30" minlength="2">
+        <input id="name_empty" type="text" name="name" required class="popup__input" placeholder="Название" maxlength="30" minlength="2">
         <span id="name_empty-error" class="popup__error-message"></span>
-        <input id="link_empty" type="url" name="Title_new_empty" required class="popup__input" placeholder="Ссылка на картинку">
+        <input id="link_empty" type="url" name="link" required class="popup__input" placeholder="Ссылка на картинку">
         <span id="link_empty-error" class="popup__error-message"></span>
         <button class="popup__submit-button" type="submit" id="buttonAddImage">Создать</button> 
       </form>
@@ -68,11 +67,10 @@
    <div  class="popup" id="formImage">
         <button class="popup__close-button" type="button"></button>
         <div class="popup__container popup__container_big">
-            <img class="popup__image" alt="" src="#">
+            <img class="popup__image" alt="">
             <p class="popup__subtitle"></p>
         </div>
     </div>
   <div class="overlay"></div>
-  <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>
