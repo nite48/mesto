@@ -72,4 +72,6 @@ export const POPUP_DESCRIPTION_SELECTOR = '.popup__subtitle';
 export const ELEMENT_TEMPLATE_SELECTOR = '#elementsTemplate';
 //Получение данных об имени и  описания профиля
 export const ARRAY_ELEMENT_PROFILE = {nameProfile: '.profile__title', descriptionProfile: '.profile__description'};
-export const POPUP_EDIT_PROFILE = '#addImage';
+export const POPUP_EDIT_PROFILE = '#popupProfile';
+
+export const POPUP_ADD_CARD_ELEMENT = '#addImage';
