@@ -29,7 +29,7 @@ export default class Popup{
   }
   
   setEventListeners(){
-    this._popup.addEventListener('click', this._closePopupOutside);
+    this._popup.addEventListener('mousedown', this._closePopupOutside);
     this._popupCloseButton.addEventListener('click', this.close);
   }
 }
