@@ -4,18 +4,12 @@ export const profileName = document.querySelector('#name');
 export const formTitle = document.querySelector('#title');
 export const emptyAddImage = document.querySelector('#addImage');
 export const formNameForm = document.querySelector('.profile__title');
-const formDescriptionForm = document.querySelector('.profile__description');
-const formNameEmpty = document.querySelector('#name_empty');
-const formLinkEmpty = document.querySelector('#link_empty');
 export const formClickImage = document.querySelector('#formImage');
 export const formImageInsert = formClickImage.querySelector('.popup__image');
 export const formElementContent = formClickImage.querySelector('.popup__subtitle');
 export const popupProfileEdit = document.querySelector('#popupProfile');
 export const newCardForn = emptyAddImage.querySelector('.popup__form');
 export const numberKeyboards = 27;
-const nameEmpty= emptyAddImage.querySelector('#name_empty');
-const linkEmpty= emptyAddImage.querySelector('#link_empty');
-const buttonElement = document.querySelector('#buttonAddImage');
 export const elementTemplate = document.querySelector('.elements');
 export const elementContainer = document.querySelector('#elementsTemplate')
 
@@ -64,7 +58,7 @@ export const initialCards = [
     link: baikal
   }
 ];
-export const FormValidEditProfile = popupProfileEdit.querySelector('.popup__form')
+export const formValidEditProfile = popupProfileEdit.querySelector('.popup__form')
 //selectors
 // Получение данных о блоке  куда вставляются изображения 
 export const CARD_OBJECT_SELECTOR = '.elements';

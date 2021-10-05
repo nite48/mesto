@@ -9,7 +9,7 @@ import {
   newCardForn, 
   data, 
   initialCards,  
-  FormValidEditProfile,
+  formValidEditProfile,
   CARD_OBJECT_SELECTOR,
   VIEW_CARD_IMAGE,
   POPUP_IMAGE_SELECTOR,
@@ -38,14 +38,13 @@ const cardListSection = new Section({
 
 const popapImageView = new PopupWithImage(VIEW_CARD_IMAGE, POPUP_IMAGE_SELECTOR, POPUP_DESCRIPTION_SELECTOR);
 
-const formEditValidator = new FormValidator(FormValidEditProfile, data)
+const formEditValidator = new FormValidator(formValidEditProfile, data)
 formEditValidator.enableValidation()
 
 const formAddValidator = new FormValidator(newCardForn, data)
 formAddValidator.enableValidation()
 
 const userInfo = new UserInfo(ARRAY_ELEMENT_PROFILE);
-// console.log(userInfo)
 
 const popupProfileEdit = new PopupWithForm({
   validatorForm : formEditValidator,
