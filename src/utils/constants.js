@@ -11,7 +11,8 @@ export const popupProfileEdit = document.querySelector('#popupProfile');
 export const newCardForn = emptyAddImage.querySelector('.popup__form');
 export const numberKeyboards = 27;
 export const elementTemplate = document.querySelector('.elements');
-export const elementContainer = document.querySelector('#elementsTemplate')
+export const elementContainer = document.querySelector('#elementsTemplate');
+export const popupRemoveButtonForm = document.querySelector('#popupRemoveElement');
 
 
 const arhiz = new URL('../images/arkhyz.jpg', import.meta.url);
@@ -77,3 +78,8 @@ export const ARRAY_ELEMENT_PROFILE = {nameProfile: '.profile__title', descriptio
 export const POPUP_EDIT_PROFILE = '#popupProfile';
 
 export const POPUP_ADD_CARD_ELEMENT = '#addImage';
+
+
+//Токены и пароли. Ну вообще лучше добавлять в env файлы помоему 
+export const ENVIROMENT_TOKEN = 'fba87aed-c454-4c38-b5b2-fd44e9ef4862';
+export const IDENTIFICATION_GROUP = 'https://mesto.nomoreparties.co/v1/cohort-28';

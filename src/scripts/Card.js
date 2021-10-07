@@ -1,11 +1,10 @@
-
+import{popupRemoveButtonForm} from '../utils/constants.js'
 
 
 export default class Card{
   constructor({data, handleCardClick}, cardSelector) {
     this._name = data.name;
     this._link = data.link;
-    console.log(data)
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
 
@@ -44,7 +43,7 @@ export default class Card{
   _removeImage(event){
     this._element.remove();
   }
-
+  
 
   _enlargingImage(){
     this._handleCardClick(this._name, this._link)
@@ -58,7 +57,8 @@ export default class Card{
       this._enlargingImage();
     });
     this._element.querySelector('.element__remove-button').addEventListener('click', () =>{
-      this._removeImage();
+      popupRemoveButtonForm.classList.add('popup_activated');
+      // this._removeImage();
     });
   }
 }

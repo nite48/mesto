@@ -16,19 +16,36 @@ import {
   POPUP_DESCRIPTION_SELECTOR,
   ARRAY_ELEMENT_PROFILE,
   POPUP_EDIT_PROFILE,
-  POPUP_ADD_CARD_ELEMENT} 
+  POPUP_ADD_CARD_ELEMENT,
+  ENVIROMENT_TOKEN,
+  IDENTIFICATION_GROUP} 
   from '../utils/constants.js';
 import PopupWithImage from './PopupWithImage.js';
 import { createCard } from '../utils/utils.js';
 import UserInfo from './UserInfo.js';
 import PopupWithForm from  './PopupWithForm.js';
-
+import Api from './Api.js'
 import '../pages/index.css';
 
 
+const api = new Api({
+  baseUrl: IDENTIFICATION_GROUP,
+  headers: {
+    authorization: ENVIROMENT_TOKEN,
+    'Content-Type': 'application/json'
+  }
+});
+api.getInitialCards()
+  .then((result) =>{
+    console.log(result)
+    cardListSection.renderItems(result)
+  })
+  .catch((err) =>{
+    console.log(err);
+  })
+
 //Создание объекта  страницы и заполнение данными
 const cardListSection = new Section({
-  items: initialCards,
   renderer: (item) => {
     const card = createCard(item, popapImageView);
     const cardElement = card.generateCard();
@@ -54,7 +71,6 @@ const popupProfileEdit = new PopupWithForm({
 },POPUP_EDIT_PROFILE);
 
 
-//Добавление новой карточки
 const popupImageAdd = new PopupWithForm({
   validatorForm : formAddValidator,
   handleFormSubmit: (formData) => {
@@ -75,7 +91,10 @@ profileButtonEdit.addEventListener('click', () =>{
 editButtonEditEmpty.addEventListener('click', () => {
   popupImageAdd.open()
 });
-cardListSection.renderItems();
+// cardListSection.renderItems();
 popapImageView.setEventListeners();
 popupProfileEdit.setEventListeners();
 popupImageAdd.setEventListeners();
+
+
+

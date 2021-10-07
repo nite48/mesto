@@ -11,8 +11,11 @@
   </header>
   <main>
     <section class="profile">
-
-      <img src='<%=require("./images/kusto.jpg")%>' class="profile__avatar" alt="Кюсто">
+      <div class="profile__container">
+        <img src='<%=require("./images/kusto.jpg")%>' class="profile__avatar" alt="Кюсто">
+        <div class="profile__overlay"></div>
+      </div>
+      
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <button class="profile__edit-button" type="button"></button>
@@ -59,7 +62,10 @@
       <img class="element__image" alt="">
       <div class="element__container">
         <h2 class="element__title" id="titleElement"></h2>
-        <button class="element__heart" type="button"></button>
+        <div class="element__heart-container">
+          <button class="element__heart" type="button"></button>
+          <span class="element__heart-count">0</span>
+        </div>
       </div>
       <button class="element__remove-button" type="button"></button>
     </div>
@@ -72,5 +78,24 @@
         </div>
     </div>
   <div class="overlay"></div>
+  <div class="popup" id="popupRemoveElement">
+    <button class="popup__close-button" type="button"></button>
+    <div class="popup__container">
+      <h2 class="popup__title">Вы уверенны?</h2>
+      <form class="popup__form" name="formEdit"> 
+        <button class="popup__submit-button" type="submit" id="buttonRemoveImage">Да</button>
+      </form>
+    </div>  
+  </div>
+  <div class="popup" id="popupEditAvatar">
+    <button class="popup__close-button" type="button"></button>
+    <div class="popup__container">
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form" name="formEditAvatar">
+        <input id="linkAvatar" type="url" name="link" required class="popup__input" placeholder="Ссылка на аватар"> 
+        <button class="popup__submit-button" type="submit" id="buttonSaveAvatar">Сохранить</button>
+      </form>
+    </div>  
+  </div>
 </body>
 </html>
