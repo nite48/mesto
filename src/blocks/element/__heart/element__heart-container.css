@@ -1,0 +1,7 @@
+.element__heart-container{
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: 20px;
+  margin-top: 5px;
+}
