@@ -60,3 +60,5 @@
 @import url(../blocks/profile/__overlay/profile__overlay.css);
 @import url(../blocks/profile/__container/profile__container.css);
 
+@import url(../blocks/element/__remove-button/element__remove-none.css);
+
