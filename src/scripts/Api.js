@@ -1,3 +1,4 @@
+import ENVIROMENT_TOKEN from '../utils/constants.js';
 export default class Api{
   constructor(parameters){
     this._parameters = parameters;
@@ -21,15 +22,38 @@ export default class Api{
         name: card.name,
         link: card.link
       }),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8'
-      }
+      headers: this._queryParameters.headers
     })
-    .then((post) =>{
+    .then((res) =>{
       if(res.ok){
         return res.json()
       }
       return Promise.reject('Ошибка отправки карточки'`${res.status}`)
+    })
+  }
+  getUserInfo(){
+    return fetch(`${this._parameters.baseUrl}/users/me`, this._queryParameters)
+    .then((res) =>{
+      if(res.ok){
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+  }
+  getUserEdit(name, about){
+    return fetch(`${this._parameters.baseUrl}/users/me`,{
+      method: 'PATCH',
+      headers: this._queryParameters.headers,
+      body: JSON.stringify({
+        name: name,
+        about: about
+      })
+    })
+    .then((res) =>{
+      if(res.ok){
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
     })
   }
 }

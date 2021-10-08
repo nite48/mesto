@@ -6,9 +6,9 @@ import {
   formTitle,
   profileButtonEdit, 
   editButtonEditEmpty, 
-  newCardForn, 
-  data, 
-  initialCards,  
+  newCardForn,
+  removeButtonClass, 
+  data,  
   formValidEditProfile,
   CARD_OBJECT_SELECTOR,
   VIEW_CARD_IMAGE,
@@ -27,7 +27,6 @@ import PopupWithForm from  './PopupWithForm.js';
 import Api from './Api.js'
 import '../pages/index.css';
 
-
 const api = new Api({
   baseUrl: IDENTIFICATION_GROUP,
   headers: {
@@ -37,22 +36,35 @@ const api = new Api({
 });
 api.getInitialCards()
   .then((result) =>{
-    console.log(result)
+    //console.log(result)
     cardListSection.renderItems(result)
   })
   .catch((err) =>{
     console.log(err);
   })
 
+  api.getUserInfo()
+    .then((result) =>{
+      userInfo.setUserInfo(result.name, result.about, result.avatar, result.id)
+    })
+    .catch((err) =>{
+      console.log('Случилась херня '+ err)
+    })
+
+//Создание оьъекта  с  информацией о пользователе
+const userInfo = new UserInfo(ARRAY_ELEMENT_PROFILE);
+// console.log(userInfo)
 //Создание объекта  страницы и заполнение данными
 const cardListSection = new Section({
   renderer: (item) => {
     const card = createCard(item, popapImageView);
     const cardElement = card.generateCard();
-    cardListSection.addItem(cardElement);
+    cardListSection.addItem(cardElement); //вызов функции генерации
+
   }
 }, CARD_OBJECT_SELECTOR);
 
+//Создание объекта для увеличения карточек
 const popapImageView = new PopupWithImage(VIEW_CARD_IMAGE, POPUP_IMAGE_SELECTOR, POPUP_DESCRIPTION_SELECTOR);
 
 const formEditValidator = new FormValidator(formValidEditProfile, data)
@@ -61,22 +73,36 @@ formEditValidator.enableValidation()
 const formAddValidator = new FormValidator(newCardForn, data)
 formAddValidator.enableValidation()
 
-const userInfo = new UserInfo(ARRAY_ELEMENT_PROFILE);
 
 const popupProfileEdit = new PopupWithForm({
   validatorForm : formEditValidator,
   handleFormSubmit: (formData) =>{
-    userInfo.setUserInfo(formData.name, formData.description)
+    //console.log(formData)
+    const sendProfileResult = api.getUserEdit(formData.name, formData.description)
+    .then((result) =>{
+      userInfo.setUserInfo(result.name, result.about, result.avatar)
+      
+    })
+    .catch((err) =>{
+      console.log('Опять накосячил'+ err)
+    })
+    
   }
 },POPUP_EDIT_PROFILE);
 
-
+//Создание объекта для добавления карточки
 const popupImageAdd = new PopupWithForm({
   validatorForm : formAddValidator,
-  handleFormSubmit: (formData) => {
-    const card = createCard(formData, popapImageView);
-    const cardElement = card.generateCard();
-    cardListSection.addItem(cardElement);
+  handleFormSubmit: (formData) => {   
+    const postApiCard = api.postCardApi(formData)
+    .then((result) =>{
+      const card = createCard(result, popapImageView);
+      const cardElement = card.generateCard();
+      cardListSection.addItem(cardElement); /// Вызов функции добавления
+    })
+    .catch((err) =>{
+      console.log('Какая то ошибка'+ err)
+    })
   }
 }, POPUP_ADD_CARD_ELEMENT)
 
