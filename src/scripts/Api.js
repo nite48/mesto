@@ -1,4 +1,4 @@
-import ENVIROMENT_TOKEN from '../utils/constants.js';
+//import ENVIROMENT_TOKEN from '../utils/constants.js';
 export default class Api{
   constructor(parameters){
     this._parameters = parameters;
@@ -55,5 +55,47 @@ export default class Api{
       }
       return Promise.reject(`Ошибка: ${res.status}`);
     })
+  }
+  deleteCard(card){
+    return fetch(`${this._parameters.baseUrl}/cards/${id}`,{
+      method: 'POST',
+      headers: this._queryParameters.headers,
+      body: JSON.stringify({
+        name: card.name,
+        link: card.link
+      })
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка удаления карточки: ${res.status}`);
+    });
+  }
+  handleCardLike(id, isLiked){
+    console.log(id)
+    if (!isLiked) {
+      return fetch(`${this._parameters.baseUrl}/cards/likes/${id}`, {
+        method: 'PUT',
+        headers: this._queryParameters.headers
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка лайка карточки: ${res.status}`);
+      });
+    }else{
+      return fetch(`${this._parameters.baseUrl}/cards/likes/${id}`, {
+        method: 'DELETE',
+        headers: this._queryParameters.headers
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка удаление лайка: ${res.status}`);
+      });
+    }
   }
 }

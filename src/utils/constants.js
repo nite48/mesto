@@ -13,6 +13,7 @@ export const numberKeyboards = 27;
 export const elementTemplate = document.querySelector('.elements');
 export const elementContainer = document.querySelector('#elementsTemplate');
 export const popupRemoveButtonForm = document.querySelector('#popupRemoveElement');
+export const popupEditAvatar = document.querySelector('#popupEditAvatar');
 
 
 const arhiz = new URL('../images/arkhyz.jpg', import.meta.url);
@@ -60,6 +61,13 @@ export const initialCards = [
   }
 ];
 export const formValidEditProfile = popupProfileEdit.querySelector('.popup__form')
+
+export const popupEditAvatarIcon = popupEditAvatar.querySelector('.popup__form')
+
+//аватарка
+export const avatarPhoto = document.querySelector('.profile__container');
+
+// export const editButtonAvatar = document.querySelector('.profile__edit-button')
 //selectors
 // Получение данных о блоке  куда вставляются изображения 
 export const CARD_OBJECT_SELECTOR = '.elements';
@@ -76,8 +84,9 @@ export const ELEMENT_TEMPLATE_SELECTOR = '#elementsTemplate';
 //Получение данных об имени и  описания профиля
 export const ARRAY_ELEMENT_PROFILE = {nameProfile: '.profile__title', descriptionProfile: '.profile__description'};
 export const POPUP_EDIT_PROFILE = '#popupProfile';
-
+export const POPUP_PHOTO_EDIT_PROFILE = '#popupEditAvatar';
 export const POPUP_ADD_CARD_ELEMENT = '#addImage';
+export const POPUP_DELETE_SELECTOR = '#popupRemoveElement'
 
 
 //Токены и пароли. Ну вообще лучше добавлять в env файлы помоему 

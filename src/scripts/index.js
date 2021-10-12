@@ -7,8 +7,9 @@ import {
   profileButtonEdit, 
   editButtonEditEmpty, 
   newCardForn,
-  removeButtonClass, 
-  data,  
+  popupEditAvatarIcon,
+  avatarPhoto,
+  data,
   formValidEditProfile,
   CARD_OBJECT_SELECTOR,
   VIEW_CARD_IMAGE,
@@ -18,7 +19,9 @@ import {
   POPUP_EDIT_PROFILE,
   POPUP_ADD_CARD_ELEMENT,
   ENVIROMENT_TOKEN,
-  IDENTIFICATION_GROUP} 
+  IDENTIFICATION_GROUP,
+  POPUP_DELETE_SELECTOR,
+  POPUP_PHOTO_EDIT_PROFILE} 
   from '../utils/constants.js';
 import PopupWithImage from './PopupWithImage.js';
 import { createCard } from '../utils/utils.js';
@@ -26,8 +29,9 @@ import UserInfo from './UserInfo.js';
 import PopupWithForm from  './PopupWithForm.js';
 import Api from './Api.js'
 import '../pages/index.css';
+import PopupWithConfirm from './PopupWithConfirm.js';
 
-const api = new Api({
+export const api = new Api({
   baseUrl: IDENTIFICATION_GROUP,
   headers: {
     authorization: ENVIROMENT_TOKEN,
@@ -45,24 +49,45 @@ api.getInitialCards()
 
   api.getUserInfo()
     .then((result) =>{
-      userInfo.setUserInfo(result.name, result.about, result.avatar, result.id)
+      userInfo.setUserInfo(result.name, result.about, result.avatar, result._id)
     })
     .catch((err) =>{
       console.log('Случилась херня '+ err)
     })
 
 //Создание оьъекта  с  информацией о пользователе
-const userInfo = new UserInfo(ARRAY_ELEMENT_PROFILE);
+export const userInfo = new UserInfo(ARRAY_ELEMENT_PROFILE);
 // console.log(userInfo)
 //Создание объекта  страницы и заполнение данными
 const cardListSection = new Section({
   renderer: (item) => {
-    const card = createCard(item, popapImageView);
+    const card = createCard(item, popapImageView, popupPhotoDelete);
     const cardElement = card.generateCard();
     cardListSection.addItem(cardElement); //вызов функции генерации
 
   }
 }, CARD_OBJECT_SELECTOR);
+
+
+
+const popupPhotoDelete = new PopupWithConfirm({
+  handleConfirm: (cardID, card) => {
+    const buttonText = popupProfileEdit.submitButton.textContent;
+    popupPhotoDelete.submitButton.textContent = "Удаление...";
+    api.deleteCard(cardID)
+      .then((result) => {
+        console.log(result)
+        card.remove();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupPhotoDelete.submitButton.textContent = buttonText;
+      });
+  }
+}, POPUP_DELETE_SELECTOR);
+
 
 //Создание объекта для увеличения карточек
 const popapImageView = new PopupWithImage(VIEW_CARD_IMAGE, POPUP_IMAGE_SELECTOR, POPUP_DESCRIPTION_SELECTOR);
@@ -72,6 +97,10 @@ formEditValidator.enableValidation()
 
 const formAddValidator = new FormValidator(newCardForn, data)
 formAddValidator.enableValidation()
+
+
+const formEditIconProfile = new FormValidator(popupEditAvatarIcon ,data)
+formEditIconProfile.enableValidation()
 
 
 const popupProfileEdit = new PopupWithForm({
@@ -96,7 +125,7 @@ const popupImageAdd = new PopupWithForm({
   handleFormSubmit: (formData) => {   
     const postApiCard = api.postCardApi(formData)
     .then((result) =>{
-      const card = createCard(result, popapImageView);
+      const card = createCard(result, popapImageView, popupPhotoDelete);
       const cardElement = card.generateCard();
       cardListSection.addItem(cardElement); /// Вызов функции добавления
     })
@@ -106,6 +135,24 @@ const popupImageAdd = new PopupWithForm({
   }
 }, POPUP_ADD_CARD_ELEMENT)
 
+// создание попапа редактирования фото профиля
+const popupEditProfilePhoto = new PopupWithForm({
+  validatorForm: formEditIconProfile,
+  handleFormSubmit: (formData) => {
+    const buttonText = popupEditProfilePhoto.submitButton.textContent;
+    popupEditProfilePhoto.submitButton.textContent = "Сохранение..."
+    api.patchUserPhoto(formData.photo)
+      .then((result) => {
+        avatarPhoto.src = result.avatar;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupEditProfilePhoto.submitButton.textContent = buttonText;
+      });
+  }
+}, POPUP_PHOTO_EDIT_PROFILE);
 
 profileButtonEdit.addEventListener('click', () =>{
   popupProfileEdit.open();
@@ -117,6 +164,11 @@ profileButtonEdit.addEventListener('click', () =>{
 editButtonEditEmpty.addEventListener('click', () => {
   popupImageAdd.open()
 });
+
+avatarPhoto.addEventListener('click', () => {
+  popupEditProfilePhoto.open()
+});
+
 // cardListSection.renderItems();
 popapImageView.setEventListeners();
 popupProfileEdit.setEventListeners();
