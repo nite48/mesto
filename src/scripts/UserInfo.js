@@ -19,7 +19,10 @@ export default class UserInfo{
       this._currentNameProfile.textContent = name;
       this._currentDescriptionProfile.textContent = description;
       this._avatar.src = avatar;
-      //console.log(this._avatar)
       this._id = id;
+      //console.log(this._id)
+    }
+    getId(){
+      return this._id
     }
 }

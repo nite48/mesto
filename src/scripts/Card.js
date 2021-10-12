@@ -2,19 +2,22 @@ import{popupRemoveButtonForm} from '../utils/constants.js'
 
 
 export default class Card{
-  constructor({data, handleCardClick}, cardSelector) {
+  constructor({data, handleCardClick, handlePhotoDelete, handleCardLikeClick}, myId, cardSelector) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
+    this._id = data._id;
+    this._ownerId = data.owner._id;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._isLiked = false;
-    // console.log(data);
+    this._myId = myId;
+    this._handlePhotoDelete = handlePhotoDelete;
+    this._handleLikeCard = handleCardLikeClick
+    this._isLiked = this._likes.some((item) => item._id === this.myId);
     
 
 
   }
-
 
   _getTemplate(){
     const cardElement = document
@@ -28,15 +31,17 @@ export default class Card{
 
 
   generateCard(){
+    this._cardCreateNew();
     this._element = this._getTemplate();
     this._image = this._element.querySelector('.element__image');
-    this._likeButton= this._element.querySelector('.element__heart');
+    this._likeButton = this._element.querySelector('.element__heart');
     this._removeButton = this._element.querySelector('.element__remove-button');
     this._element.querySelector('.element__title').textContent = this._name;
     this._countLike = this._element.querySelector('.element__heart-count');
-    console.log(this._countLike.textContent)
+    if(!this._cardCreateNew()){
+      this._removeButton.remove();
+    }
     this._countLike.textContent = this._likes.length;
-    console.log(this._countLike.textContent)
     this._image.src = this._link;
     this._image.alt = this._name;
     this._setEventListeners();
@@ -48,15 +53,17 @@ export default class Card{
   _likeIt(){
     this._likeButton.classList.toggle('element__heart-black')
   }
+  _cardCreateNew(){
+    if (this._myId === this._ownerId) {
+      return true
+    }
+  }
  
 
 
-  _removeImage(event){
-    this._element.remove();
-  }
-  _count(){
-    this._isLiked = !this._isLiked
-    
+  _handleElementDelete(event){
+    this._handlePhotoDelete(this._id, this._element)
+    //this._element.remove();
   }
   
 
@@ -65,17 +72,21 @@ export default class Card{
   }
  
   _setEventListeners(){
-    this._element.querySelector('.element__heart').addEventListener('click', () => {
-      this._likeIt();
-      this._count();
+    this._likeButton.addEventListener('click', () => {
+      this._handleLikeCard(this._id, this._isLiked, (result) =>{
+        this._isLiked = !this._isLiked;    
+        this._countLike.textContent = result.likes.length
+        console.log(this._countLike)
+        this._likeIt();
+      })
       
     });
     this._element.querySelector('.element__image').addEventListener('click', () =>{
       this._enlargingImage();
     });
-    this._element.querySelector('.element__remove-button').addEventListener('click', () =>{
-      //popupRemoveButtonForm.classList.add('popup_activated');
-      this._removeImage();
+    this._removeButton.addEventListener('click', () =>{
+      this._handleElementDelete();
+      // this._removeImage();
     });
   }
 }
