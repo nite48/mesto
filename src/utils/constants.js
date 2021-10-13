@@ -60,10 +60,11 @@ export const initialCards = [
     link: baikal
   }
 ];
-export const formValidEditProfile = popupProfileEdit.querySelector('.popup__form')
+export const formValidEditProfile = document.querySelector('#popupProfile').querySelector('.popup__form'); //popupProfile
 
-export const popupEditAvatarIcon = popupEditAvatar.querySelector('.popup__form')
+export const popupEditAvatarIcon = popupEditAvatar.querySelector('.popup__form');
 
+export const profileAvatar  = document.querySelector('.profile__avatar');
 //аватарка
 export const avatarPhoto = document.querySelector('.profile__container');
 

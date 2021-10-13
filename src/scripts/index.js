@@ -10,6 +10,7 @@ import {
   popupEditAvatarIcon,
   avatarPhoto,
   data,
+  profileAvatar,
   formValidEditProfile,
   CARD_OBJECT_SELECTOR,
   VIEW_CARD_IMAGE,
@@ -57,7 +58,6 @@ api.getInitialCards()
 
 //Создание оьъекта  с  информацией о пользователе
 export const userInfo = new UserInfo(ARRAY_ELEMENT_PROFILE);
-// console.log(userInfo)
 //Создание объекта  страницы и заполнение данными
 const cardListSection = new Section({
   renderer: (item) => {
@@ -99,25 +99,11 @@ const formAddValidator = new FormValidator(newCardForn, data)
 formAddValidator.enableValidation()
 
 
-const formEditIconProfile = new FormValidator(popupEditAvatarIcon ,data)
+const formEditIconProfile = new FormValidator(popupEditAvatarIcon, data)
 formEditIconProfile.enableValidation()
 
 
-const popupProfileEdit = new PopupWithForm({
-  validatorForm : formEditValidator,
-  handleFormSubmit: (formData) =>{
-    //console.log(formData)
-    const sendProfileResult = api.getUserEdit(formData.name, formData.description)
-    .then((result) =>{
-      userInfo.setUserInfo(result.name, result.about, result.avatar)
-      
-    })
-    .catch((err) =>{
-      console.log('Опять накосячил'+ err)
-    })
-    
-  }
-},POPUP_EDIT_PROFILE);
+
 
 //Создание объекта для добавления карточки
 const popupImageAdd = new PopupWithForm({
@@ -135,24 +121,47 @@ const popupImageAdd = new PopupWithForm({
   }
 }, POPUP_ADD_CARD_ELEMENT)
 
-// создание попапа редактирования фото профиля
+// создание объекта  редактирования фото профиля
 const popupEditProfilePhoto = new PopupWithForm({
   validatorForm: formEditIconProfile,
   handleFormSubmit: (formData) => {
     const buttonText = popupEditProfilePhoto.submitButton.textContent;
     popupEditProfilePhoto.submitButton.textContent = "Сохранение..."
-    api.patchUserPhoto(formData.photo)
+    api.sendUserPhoto(formData.link)
       .then((result) => {
-        avatarPhoto.src = result.avatar;
+        console.log(profileAvatar)
+        profileAvatar.src = result.avatar;
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        popupEditProfilePhoto.submitButton.textContent = buttonText;
+        popupProfileEdit.submitButton.textContent = buttonText;
       });
   }
 }, POPUP_PHOTO_EDIT_PROFILE);
+
+
+// создание объекта редактирования  профиля
+const popupProfileEdit = new PopupWithForm({
+  validatorForm : formEditValidator,
+  handleFormSubmit: (formData) =>{
+    const buttonText = popupProfileEdit.submitButton.textContent;
+    popupProfileEdit.submitButton.textContent = "Сохранение..."
+    api.getUserEdit(formData.name, formData.description)
+      .then((result) =>{
+        userInfo.setUserInfo(result.name, result.about, result.avatar)
+        
+      })
+      .catch((err) =>{
+        console.log('Опять накосячил'+ err)
+      })
+      .finally(() =>{
+        popupProfileEdit.submitButton.textContent = buttonText;
+      })
+    
+  }
+},POPUP_EDIT_PROFILE);
 
 profileButtonEdit.addEventListener('click', () =>{
   popupProfileEdit.open();
@@ -169,10 +178,10 @@ avatarPhoto.addEventListener('click', () => {
   popupEditProfilePhoto.open()
 });
 
-// cardListSection.renderItems();
 popapImageView.setEventListeners();
 popupProfileEdit.setEventListeners();
 popupImageAdd.setEventListeners();
-
+popupEditProfilePhoto.setEventListeners();
+popupPhotoDelete.setEventListeners();
 
 
