@@ -1,5 +1,6 @@
 .popup_activated{
-  display: grid;
+  visibility: visible;
+  opacity: 1;
   grid-column: 2;
   grid-row: 2;
 }

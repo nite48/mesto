@@ -72,7 +72,7 @@ const cardListSection = new Section({
 
 const popupPhotoDelete = new PopupWithConfirm({
   handleConfirm: (cardID, card) => {
-    const buttonText = popupProfileEdit.submitButton.textContent;
+    const buttonText = popupEditProfilePhoto.submitButton.textContent;
     popupPhotoDelete.submitButton.textContent = "Удаление...";
     api.deleteCard(cardID)
       .then((result) => {
@@ -108,16 +108,21 @@ formEditIconProfile.enableValidation()
 //Создание объекта для добавления карточки
 const popupImageAdd = new PopupWithForm({
   validatorForm : formAddValidator,
-  handleFormSubmit: (formData) => {   
-    const postApiCard = api.postCardApi(formData)
-    .then((result) =>{
-      const card = createCard(result, popapImageView, popupPhotoDelete);
-      const cardElement = card.generateCard();
-      cardListSection.addItem(cardElement); /// Вызов функции добавления
-    })
-    .catch((err) =>{
-      console.log('Какая то ошибка'+ err)
-    })
+  handleFormSubmit: (formData) => { 
+    const buttonText = popupEditProfilePhoto.submitButton.textContent;
+    popupImageAdd.submitButton.textContent = "Сохранение..."  
+    api.postCardApi(formData)
+      .then((result) =>{
+        const card = createCard(result, popapImageView, popupPhotoDelete);
+        const cardElement = card.generateCard();
+        cardListSection.addItem(cardElement); /// Вызов функции добавления
+      })
+      .catch((err) =>{
+        console.log('Какая то ошибка'+ err)
+      })
+      .finally(() =>{
+        popupImageAdd.submitButton.textContent = buttonText;
+      })
   }
 }, POPUP_ADD_CARD_ELEMENT)
 
