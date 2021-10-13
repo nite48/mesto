@@ -25,7 +25,6 @@ export default class Card{
       .content
       .querySelector('.element')
       .cloneNode(true);
-    //console.log(cardElement)
     return cardElement;
   }
 
@@ -45,7 +44,6 @@ export default class Card{
     this._image.src = this._link;
     this._image.alt = this._name;
     this._setEventListeners();
-    //console.log(this._element)
     return this._element
   }
 
@@ -63,7 +61,6 @@ export default class Card{
 
   _handleElementDelete(event){
     this._handlePhotoDelete(this._id, this._element)
-    //this._element.remove();
   }
   
 
@@ -76,7 +73,6 @@ export default class Card{
       this._handleLikeCard(this._id, this._isLiked, (result) =>{
         this._isLiked = !this._isLiked;    
         this._countLike.textContent = result.likes.length
-        console.log(this._countLike)
         this._likeIt();
       })
       
@@ -86,7 +82,6 @@ export default class Card{
     });
     this._removeButton.addEventListener('click', () =>{
       this._handleElementDelete();
-      // this._removeImage();
     });
   }
 }
