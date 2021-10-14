@@ -1,6 +1,6 @@
 
-import FormValidator from './FormValidator.js';
-import Section from './Section.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
 import {
   profileName,
   formTitle,
@@ -24,13 +24,13 @@ import {
   POPUP_DELETE_SELECTOR,
   POPUP_PHOTO_EDIT_PROFILE} 
   from '../utils/constants.js';
-import PopupWithImage from './PopupWithImage.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 import { createCard } from '../utils/utils.js';
-import UserInfo from './UserInfo.js';
-import PopupWithForm from  './PopupWithForm.js';
-import Api from './Api.js'
+import UserInfo from '../components/UserInfo.js';
+import PopupWithForm from  '../components/PopupWithForm.js';
+import Api from '../components/Api.js'
 import '../pages/index.css';
-import PopupWithConfirm from './PopupWithConfirm.js';
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
 
 export const api = new Api({
   baseUrl: IDENTIFICATION_GROUP,

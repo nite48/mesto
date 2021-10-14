@@ -5,14 +5,18 @@ export default class Api{
     this._queryParameters = {};
     this._queryParameters.headers = this._parameters.headers;
   }
+  _checkResponse(res){
+    if (!res.ok) {
+      return Promise.reject(`Ошибка: ${res.status}`)
+    }
+    return res.json()
+  }
   getInitialCards() {
     return fetch(`${this._parameters.baseUrl}/cards`, this._queryParameters)
       .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-      return Promise.reject(`Ошибка: ${res.status}`);
+        return this._checkResponse(res)
       });
+      
   }
   postCardApi(card){
     return fetch(`${this._parameters.baseUrl}/cards`, {
@@ -23,20 +27,15 @@ export default class Api{
       }),
       headers: this._queryParameters.headers
     })
-    .then((res) =>{
-      if(res.ok){
-        return res.json()
-      }
-      return Promise.reject('Ошибка отправки карточки'`${res.status}`)
-    })
+    .then(res => {
+      return this._checkResponse(res)
+    });
   }
+
   getUserInfo(){
     return fetch(`${this._parameters.baseUrl}/users/me`, this._queryParameters)
-    .then((res) =>{
-      if(res.ok){
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+    .then(res =>{
+      return this._checkResponse(res)
     })
   }
   getUserEdit(name, about){
@@ -48,11 +47,8 @@ export default class Api{
         about: about
       })
     })
-    .then((res) =>{
-      if(res.ok){
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+    .then(res =>{
+      return this._checkResponse(res)
     })
   }
   deleteCard(id){
@@ -60,12 +56,9 @@ export default class Api{
       method: 'DELETE',
       headers: this._queryParameters.headers
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка удаления карточки: ${res.status}`);
-    });
+    .then(res =>{
+      return this._checkResponse(res)
+    })
   }
   handleCardLike(id, isLiked){
     if (!isLiked) {
@@ -73,23 +66,17 @@ export default class Api{
         method: 'PUT',
         headers: this._queryParameters.headers
       })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка лайка карточки: ${res.status}`);
-      });
+      .then(res =>{
+        return this._checkResponse(res)
+      })
     }else{
       return fetch(`${this._parameters.baseUrl}/cards/likes/${id}`, {
         method: 'DELETE',
         headers: this._queryParameters.headers
       })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка удаление лайка: ${res.status}`);
-      });
+      .then(res =>{
+        return this._checkResponse(res)
+      })
     }
   }
   sendUserPhoto(link){
@@ -101,10 +88,7 @@ export default class Api{
       })
     })
     .then(res =>{
-      if (res.ok){
-        return res.json();
-      }
-      return Promise.reject(`Ошибка  загрузки фото аватара: ${res.status}`);
-    });
+      return this._checkResponse(res)
+    })
   }
 }
