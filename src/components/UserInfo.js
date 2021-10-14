@@ -1,12 +1,11 @@
 export default class UserInfo{
-    constructor(userSelector){
-        // console.log(userSelector)
+    constructor(userSelector, avatarSelector){
         this._nameProfile = userSelector.nameProfile;
         this._descriptionProfile = userSelector.descriptionProfile;
         this._avatarProfile = userSelector.avatarProfile;
         this._currentNameProfile = document.querySelector(this._nameProfile);
         this._currentDescriptionProfile = document.querySelector(this._descriptionProfile);
-        this._avatar = document.querySelector('.profile__avatar');
+        this._avatar = avatarSelector;
         
 
     }
