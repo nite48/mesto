@@ -14,9 +14,10 @@ export function createCard(item, popupPhoto, popupPhotoDelete){
         popupPhotoDelete.open(cardId, card)
       },
       handleCardLikeClick: (id, isLiked, handleResult) =>{
-        console.log(id)
+        // console.log(id)
         api.handleCardLike(id, isLiked)
         .then((result) => {
+          // console.log(result)
           handleResult(result)
         })
         .catch((err) => {

@@ -67,6 +67,7 @@ export const popupEditAvatarIcon = popupEditAvatar.querySelector('.popup__form')
 export const profileAvatar  = document.querySelector('.profile__avatar');
 //аватарка
 export const avatarPhoto = document.querySelector('.profile__container');
+export const avatarSelector = document.querySelector('.profile__avatar');
 
 // export const editButtonAvatar = document.querySelector('.profile__edit-button')
 //selectors

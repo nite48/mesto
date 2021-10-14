@@ -10,6 +10,7 @@ import {
   popupEditAvatarIcon,
   avatarPhoto,
   data,
+  avatarSelector,
   profileAvatar,
   formValidEditProfile,
   CARD_OBJECT_SELECTOR,
@@ -39,25 +40,19 @@ export const api = new Api({
     'Content-Type': 'application/json'
   }
 });
-api.getInitialCards()
-  .then((result) =>{
-    //console.log(result)
-    cardListSection.renderItems(result)
-  })
-  .catch((err) =>{
-    console.log(err);
-  })
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+.then(([resultUserInfo, resultGetInitialCard]) =>{
+  userInfo.setUserInfo(resultUserInfo.name, resultUserInfo.about, resultUserInfo.avatar, resultUserInfo._id)
+  cardListSection.renderItems(resultGetInitialCard)
+})
+.catch((err) =>{
+  console.log(err);
+})
 
-  api.getUserInfo()
-    .then((result) =>{
-      userInfo.setUserInfo(result.name, result.about, result.avatar, result._id)
-    })
-    .catch((err) =>{
-      console.log('Случилась херня '+ err)
-    })
 
 //Создание оьъекта  с  информацией о пользователе
-export const userInfo = new UserInfo(ARRAY_ELEMENT_PROFILE);
+export const userInfo = new UserInfo(ARRAY_ELEMENT_PROFILE, avatarSelector);
+
 //Создание объекта  страницы и заполнение данными
 const cardListSection = new Section({
   renderer: (item) => {
@@ -113,9 +108,11 @@ const popupImageAdd = new PopupWithForm({
     popupImageAdd.submitButton.textContent = "Сохранение..."  
     api.postCardApi(formData)
       .then((result) =>{
+        console.log(result)
         const card = createCard(result, popapImageView, popupPhotoDelete);
         const cardElement = card.generateCard();
         cardListSection.addItem(cardElement); /// Вызов функции добавления
+        popupImageAdd.close();
       })
       .catch((err) =>{
         console.log('Какая то ошибка'+ err)
@@ -134,8 +131,8 @@ const popupEditProfilePhoto = new PopupWithForm({
     popupEditProfilePhoto.submitButton.textContent = "Сохранение..."
     api.sendUserPhoto(formData.link)
       .then((result) => {
-        console.log(profileAvatar)
-        profileAvatar.src = result.avatar;
+        profileAvatar.src = result.avatar;//TODO подумать как лучше извлекать инфу
+        popupEditProfilePhoto.close()
       })
       .catch((err) => {
         console.log(err);
@@ -155,7 +152,8 @@ const popupProfileEdit = new PopupWithForm({
     popupProfileEdit.submitButton.textContent = "Сохранение..."
     api.getUserEdit(formData.name, formData.description)
       .then((result) =>{
-        userInfo.setUserInfo(result.name, result.about, result.avatar)
+        userInfo.setUserInfo(result.name, result.about, result.avatar, result.id)
+        popupProfileEdit.close();
         
       })
       .catch((err) =>{
