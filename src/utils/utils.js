@@ -1,7 +1,7 @@
-import Card  from '../scripts/Card.js';
+import Card  from '../components/Card.js';
 import {ELEMENT_TEMPLATE_SELECTOR} from './constants.js';
-import {userInfo} from '../scripts/index.js';
-import {api} from '../scripts/index.js';
+import {userInfo} from '../pages/index.js';
+import {api} from '../pages/index.js';
 
 export function createCard(item, popupPhoto, popupPhotoDelete){
   // console.log(popupPhoto)

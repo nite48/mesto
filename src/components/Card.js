@@ -1,5 +1,3 @@
-import{popupRemoveButtonForm} from '../utils/constants.js'
-
 
 export default class Card{
   constructor({data, handleCardClick, handlePhotoDelete, handleCardLikeClick}, myId, cardSelector) {

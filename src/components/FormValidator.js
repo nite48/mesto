@@ -25,15 +25,15 @@ export default class FormValidator{
     inputElement.classList.remove(this._parametersValidation.inputErrorClass);
   }
   // метод отключения кнопки сабмита
-  _resolveButton(inputList, buttonElement){
-    if (inputList.every((temp) => temp.validity.valid)) {
-      buttonElement.classList.remove(this._parametersValidation.inactiveButtonClass);
-      buttonElement.removeAttribute('disabled');
+  _resolveButton(){
+    if (this._inputFields.every((temp) => temp.validity.valid)) {
+      this._submitButton.classList.remove(this._parametersValidation.inactiveButtonClass);
+      this._submitButton.removeAttribute('disabled');
       return;
     }
 
-    buttonElement.classList.add(this._parametersValidation.inactiveButtonClass);
-    buttonElement.setAttribute('disabled', true);
+    this._submitButton.classList.add(this._parametersValidation.inactiveButtonClass);
+    this._submitButton.setAttribute('disabled', true);
   }
   _validateInputField(inputElement){
     inputElement.validity.valid ? this._hideInputError(inputElement) : this._showInputError(inputElement, inputElement.validationMessage);
@@ -44,14 +44,14 @@ export default class FormValidator{
     this._inputFields.forEach((inputElement) => {
       this._hideInputError(inputElement);
     })
-    this._resolveButton(this._inputFields,this._submitButton);
+    this._resolveButton();
   }
   _setEventListeners(){
-    this._resolveButton(this._inputFields, this._submitButton);
+    this._resolveButton();
     this._inputFields.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
         this._validateInputField(inputElement);
-        this._resolveButton(this._inputFields, this._submitButton);
+        this._resolveButton();
       });
     });
 
