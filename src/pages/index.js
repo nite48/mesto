@@ -33,30 +33,17 @@ import Api from '../components/Api.js'
 import '../pages/index.css';
 import PopupWithConfirm from '../components/PopupWithConfirm.js';
 
-export const api = new Api({
-  baseUrl: IDENTIFICATION_GROUP,
-  headers: {
-    authorization: ENVIROMENT_TOKEN,
-    'Content-Type': 'application/json'
-  }
-});
-Promise.all([api.getUserInfo(), api.getInitialCards()])
-.then(([resultUserInfo, resultGetInitialCard]) =>{
-  userInfo.setUserInfo(resultUserInfo.name, resultUserInfo.about, resultUserInfo.avatar, resultUserInfo._id)
-  cardListSection.renderItems(resultGetInitialCard)
-})
-.catch((err) =>{
-  console.log(err);
-})
 
 
 //Создание оьъекта  с  информацией о пользователе
 export const userInfo = new UserInfo(ARRAY_ELEMENT_PROFILE, avatarSelector);
 
+
 //Создание объекта  страницы и заполнение данными
 const cardListSection = new Section({
   renderer: (item) => {
     const card = createCard(item, popapImageView, popupPhotoDelete);
+    // console.log(item.likes)
     const cardElement = card.generateCard();
     cardListSection.addItem(cardElement); //вызов функции генерации
 
@@ -65,13 +52,37 @@ const cardListSection = new Section({
 
 
 
+
+export const api = new Api({
+  baseUrl: IDENTIFICATION_GROUP,
+  headers: {
+    authorization: ENVIROMENT_TOKEN,
+    'Content-Type': 'application/json'
+  }
+});
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+.then(([resultUserInfo, resultGetInitialCard]) =>{
+  userInfo.setUserInfo(resultUserInfo.name, resultUserInfo.about, resultUserInfo.avatar, resultUserInfo._id)
+  cardListSection.renderItems(resultGetInitialCard); })
+.catch((err) =>{
+  console.log(err);
+})
+
+
+
+
+
+
+
+
 const popupPhotoDelete = new PopupWithConfirm({
-  handleConfirm: (cardID, card) => {
+  handleConfirm: (cardId, card) => {
     const buttonText = popupEditProfilePhoto.submitButton.textContent;
     popupPhotoDelete.submitButton.textContent = "Удаление...";
-    api.deleteCard(cardID)
+    api.deleteCard(cardId)
       .then((result) => {
-        console.log(result)
+        //console.log(result)
         card.remove();
       })
       .catch((err) => {
@@ -108,7 +119,7 @@ const popupImageAdd = new PopupWithForm({
     popupImageAdd.submitButton.textContent = "Сохранение..."  
     api.postCardApi(formData)
       .then((result) =>{
-        console.log(result)
+        // console.log(result)
         const card = createCard(result, popapImageView, popupPhotoDelete);
         const cardElement = card.generateCard();
         cardListSection.addItem(cardElement); /// Вызов функции добавления

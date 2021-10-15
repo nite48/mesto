@@ -18,6 +18,14 @@ export default class Api{
       });
       
   }
+
+  getUserInfo(){
+    return fetch(`${this._parameters.baseUrl}/users/me`, this._queryParameters)
+      .then(res =>{
+        return this._checkResponse(res)
+      })
+  }
+
   postCardApi(card){
     return fetch(`${this._parameters.baseUrl}/cards`, {
       method: 'POST',
@@ -32,12 +40,6 @@ export default class Api{
     });
   }
 
-  getUserInfo(){
-    return fetch(`${this._parameters.baseUrl}/users/me`, this._queryParameters)
-    .then(res =>{
-      return this._checkResponse(res)
-    })
-  }
   getUserEdit(name, about){
     return fetch(`${this._parameters.baseUrl}/users/me`,{
       method: 'PATCH',
@@ -60,25 +62,7 @@ export default class Api{
       return this._checkResponse(res)
     })
   }
-  handleCardLike(id, isLiked){
-    if (!isLiked) {
-      return fetch(`${this._parameters.baseUrl}/cards/likes/${id}`, {
-        method: 'PUT',
-        headers: this._queryParameters.headers
-      })
-      .then(res =>{
-        return this._checkResponse(res)
-      })
-    }else{
-      return fetch(`${this._parameters.baseUrl}/cards/likes/${id}`, {
-        method: 'DELETE',
-        headers: this._queryParameters.headers
-      })
-      .then(res =>{
-        return this._checkResponse(res)
-      })
-    }
-  }
+  
   sendUserPhoto(link){
     return fetch(`${this._parameters.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
@@ -90,5 +74,28 @@ export default class Api{
     .then(res =>{
       return this._checkResponse(res)
     })
+  }
+  handleCardLike(id, isLiked){
+    // console.log(id, isLiked)
+    if (!isLiked) {
+      // console.log(!isLiked)
+      return fetch(`${this._parameters.baseUrl}/cards/likes/${id}`, {
+        method: 'PUT',
+        headers: this._queryParameters.headers
+      })
+      .then(res =>{
+        //console.log(res)
+        return this._checkResponse(res)
+      })
+    } else {
+      return fetch(`${this._parameters.baseUrl}/cards/likes/${id}`, {
+        method: 'DELETE',
+        headers: this._queryParameters.headers
+      })
+      .then(res =>{
+        // console.log(res)
+        return this._checkResponse(res)
+      })
+    }
   }
 }
