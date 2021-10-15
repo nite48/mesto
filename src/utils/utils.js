@@ -4,26 +4,30 @@ import {userInfo} from '../pages/index.js';
 import {api} from '../pages/index.js';
 
 export function createCard(item, popupPhoto, popupPhotoDelete){
-  // console.log(popupPhoto)
     const card = new Card({
       data: item,
       handleCardClick: (name, link) => {
         popupPhoto.open(name, link)
       },
-      handlePhotoDelete: (cardId, card) =>{
-        popupPhotoDelete.open(cardId, card)
-      },
+      
       handleCardLikeClick: (id, isLiked, handleResult) =>{
-        // console.log(id)
+        console.log(id, isLiked)
         api.handleCardLike(id, isLiked)
+        
         .then((result) => {
-          // console.log(result)
+          
           handleResult(result)
+          // console.log(result)
         })
         .catch((err) => {
           console.log(err);
         });
-      }
+
+      },
+      handlePhotoDelete: (cardId, card) =>{
+        popupPhotoDelete.open(cardId, card)
+        
+      },
     }, userInfo.getId(), ELEMENT_TEMPLATE_SELECTOR);
     return card;
   }

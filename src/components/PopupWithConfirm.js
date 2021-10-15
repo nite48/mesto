@@ -10,17 +10,14 @@ export default class PopupWithConfirm extends Popup{
   setEventListeners() {
     this._form.addEventListener('submit', (event) => {
       event.preventDefault();
-      this._handleConfirm(this.cardID, this.card);
-      this.close(); /// todo закрывать попапы нужно только после удачного ответа от сервера в блоке then
+      this._handleConfirm(this.cardId, this.card);
+      this.close(); 
     });
     super.setEventListeners();
   }
-  open(cardID, card) {
-    this.cardID = cardID;
+  open(cardId, card) {
+    this.cardId = cardId;
     this.card = card;
     super.open();
   }
-  // close(){
-  //   super.close()
-  // }
 }
