@@ -10,7 +10,7 @@ export default class UserInfo{
 
     }
     getUserInfo(){
-      this._objectInfo = {name: this._currentNameProfile.textContent, description: this._currentDescriptionProfile.textContent};
+      this._objectInfo = {name: this._currentNameProfile.textContent, description: this._currentDescriptionProfile.textContent}
       return this._objectInfo;
     }
     setUserInfo(name, description, avatar, id){
@@ -18,11 +18,10 @@ export default class UserInfo{
       this._currentDescriptionProfile.textContent = description;
       this._avatar.src = avatar;
       this._id = id;
-      // console.log(this._id)
+
 
     }
     getId(){
-      //console.log(this._id)
       return this._id
     }
 }

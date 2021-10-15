@@ -11,7 +11,6 @@ import {
   avatarPhoto,
   data,
   avatarSelector,
-  profileAvatar,
   formValidEditProfile,
   CARD_OBJECT_SELECTOR,
   VIEW_CARD_IMAGE,
@@ -43,7 +42,6 @@ export const userInfo = new UserInfo(ARRAY_ELEMENT_PROFILE, avatarSelector);
 const cardListSection = new Section({
   renderer: (item) => {
     const card = createCard(item, popapImageView, popupPhotoDelete);
-    // console.log(item.likes)
     const cardElement = card.generateCard();
     cardListSection.addItem(cardElement); //вызов функции генерации
 
@@ -82,8 +80,8 @@ const popupPhotoDelete = new PopupWithConfirm({
     popupPhotoDelete.submitButton.textContent = "Удаление...";
     api.deleteCard(cardId)
       .then((result) => {
-        //console.log(result)
         card.remove();
+        popupPhotoDelete.close(); 
       })
       .catch((err) => {
         console.log(err);
@@ -119,7 +117,6 @@ const popupImageAdd = new PopupWithForm({
     popupImageAdd.submitButton.textContent = "Сохранение..."  
     api.postCardApi(formData)
       .then((result) =>{
-        // console.log(result)
         const card = createCard(result, popapImageView, popupPhotoDelete);
         const cardElement = card.generateCard();
         cardListSection.addItem(cardElement); /// Вызов функции добавления
@@ -142,7 +139,7 @@ const popupEditProfilePhoto = new PopupWithForm({
     popupEditProfilePhoto.submitButton.textContent = "Сохранение..."
     api.sendUserPhoto(formData.link)
       .then((result) => {
-        profileAvatar.src = result.avatar;//TODO подумать как лучше извлекать инфу
+        userInfo.setUserInfo(result.name, result.about, result.avatar, result.id)
         popupEditProfilePhoto.close()
       })
       .catch((err) => {
@@ -182,6 +179,7 @@ profileButtonEdit.addEventListener('click', () =>{
   const information  = userInfo.getUserInfo();
   profileName.value = information.name;
   formTitle.value = information.description;
+
 });
 
 editButtonEditEmpty.addEventListener('click', () => {
