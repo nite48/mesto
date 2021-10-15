@@ -10,7 +10,6 @@ import {
   popupEditAvatarIcon,
   avatarPhoto,
   data,
-  profileAvatar,
   avatarSelector,
   formValidEditProfile,
   CARD_OBJECT_SELECTOR,
@@ -43,7 +42,6 @@ export const userInfo = new UserInfo(ARRAY_ELEMENT_PROFILE, avatarSelector);
 const cardListSection = new Section({
   renderer: (item) => {
     const card = createCard(item, popapImageView, popupPhotoDelete);
-    // console.log(item.likes)
     const cardElement = card.generateCard();
     cardListSection.addItem(cardElement); //вызов функции генерации
 
@@ -82,7 +80,6 @@ const popupPhotoDelete = new PopupWithConfirm({
     popupPhotoDelete.submitButton.textContent = "Удаление...";
     api.deleteCard(cardId)
       .then((result) => {
-        //console.log(result)
         card.remove();
         popupPhotoDelete.close(); 
       })
@@ -120,7 +117,6 @@ const popupImageAdd = new PopupWithForm({
     popupImageAdd.submitButton.textContent = "Сохранение..."  
     api.postCardApi(formData)
       .then((result) =>{
-        // console.log(result)
         const card = createCard(result, popapImageView, popupPhotoDelete);
         const cardElement = card.generateCard();
         cardListSection.addItem(cardElement); /// Вызов функции добавления
