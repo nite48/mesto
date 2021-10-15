@@ -10,8 +10,8 @@ import {
   popupEditAvatarIcon,
   avatarPhoto,
   data,
-  avatarSelector,
   profileAvatar,
+  avatarSelector,
   formValidEditProfile,
   CARD_OBJECT_SELECTOR,
   VIEW_CARD_IMAGE,
@@ -84,6 +84,7 @@ const popupPhotoDelete = new PopupWithConfirm({
       .then((result) => {
         //console.log(result)
         card.remove();
+        popupPhotoDelete.close(); 
       })
       .catch((err) => {
         console.log(err);
@@ -142,7 +143,7 @@ const popupEditProfilePhoto = new PopupWithForm({
     popupEditProfilePhoto.submitButton.textContent = "Сохранение..."
     api.sendUserPhoto(formData.link)
       .then((result) => {
-        profileAvatar.src = result.avatar;//TODO подумать как лучше извлекать инфу
+        userInfo.setUserInfo(result.name, result.about, result.avatar, result.id)
         popupEditProfilePhoto.close()
       })
       .catch((err) => {
@@ -182,6 +183,7 @@ profileButtonEdit.addEventListener('click', () =>{
   const information  = userInfo.getUserInfo();
   profileName.value = information.name;
   formTitle.value = information.description;
+
 });
 
 editButtonEditEmpty.addEventListener('click', () => {
